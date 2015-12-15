@@ -1,0 +1,19 @@
+{
+  "name": "react-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "\u001b[A\u001b[B\u001b[A\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D学习reactjs\u001b[Bindex.html",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/791060555/react-study.git"
+  },
+  "author": "pal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/791060555/react-study/issues"
+  },
+  "homepage": "https://github.com/791060555/react-study#readme"
+}

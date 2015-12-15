@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Tutorial</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/babel">
+      var CommentBox2 = React.createClass({
+        render: function() {
+          return (
+            <div className = "commentBox4" >
+             commentBox4是dom里面的类名，CommentBox2是组件名字，我终于知道了，重大发现，组件名称的手写字母必须是大写，否则没有效果（原生 HTML 元素名以小写字母开头，而自定义的 React 类名以大写字母开头）
+            </div>
+          );
+        }
+      });
+
+
+      ReactDOM.render(
+        <CommentBox2 />,
+        document.getElementById('content')
+        );
+
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className = "commentList" >
+              <Comment author ="张三">我是（this.props.children，children在props中是默认的）</Comment>
+              <Comment author ="李四">这 是 一 *条  *另 评 论</Comment>
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className = "commentForm" >
+              评论表单
+            </div>
+          );
+        }
+      });
+
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className = "commentBox">
+              <h1>评论</h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+
+      /*
+        使用这个功能，你的代码就要依赖于 marked 的安全性。在本场景中，我们传入 sanitize: true ，告诉 marked 转义掉评论文本中的 HTML 标签而不是直接原封不动地返回这些标签。
+       */
+      var Comment = React.createClass({
+        rawMarkup:function(){
+          var rawMarkup = marked(this.props.children.toString(),{sanitize:true});
+          return {__html:rawMarkup};
+        },
+        render: function() {
+          return (
+            <div className = "comment" >
+            <h2> {this.props.author}</h2>
+             <span dangerouslySetInnerHTML={this.rawMarkup()} />
+            </div>
+          );
+        }
+      });
+
+      /*
+        ReactDOM.render只能渲染一个指定的dom元素，并且内部的之前的渲染会被替代，上面的CommentBox2无效了
+       */
+      ReactDOM.render(
+        <CommentBox />,
+        document.getElementById('content')
+        );
+
+    </script>
+  </body>
+</html>
