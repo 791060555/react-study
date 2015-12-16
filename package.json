@@ -4,7 +4,7 @@
   "description": "",
   "main": "\u001b[A\u001b[B\u001b[A\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D学习reactjs\u001b[Bindex.html",
   "scripts": {
-    "test": "node server.js"
+    "test": "node server"
   },
   "repository": {
     "type": "git",
