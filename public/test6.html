@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>关于Refs的更多内容</title>
+  <!-- Not present in the tutorial. Just for basic styling. -->
+  <link rel="stylesheet" href="css/base.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+</head>
+
+<body>
+  <div id="example"></div>
+  <script type="text/babel">
+  /*
+  在这个例子中， render 函数返回一个 <input /> 实例的描述。但是真正的实例通过 this.refs.theInput 获取。只要 render 返回的某个子组件带有 ref="theInput" ，this.refs.theInput 就会获取到正确的实例
+  可以在组件类里面定义任何公共的方法（比如在输入之前的重置方法），然后通过 refs 来调用这些公共的方法（比如 this.refs.myTypeahead.reset() ）。
+管理 DOM 几乎总是需要冲出“本地”组件的限制，比如通过 this.refs.myInput.getDOMNode() 获取 <input /> 元素的底层 DOM 节点。 Refs 是做这件事唯一可靠的方式。
+Refs 是被自动管理的！如果某个子级实例被销毁了，它的 ref 也会自动销毁。不用考虑内存问题（除非你自己做一些疯狂的操作，保存了什么引用）。
+  */
+  var App = React.createClass({
+    getInitialState:function(){
+      return {userInput:''};
+   },
+   handleChange:function(e){
+     this.setState({userInput:e.trigger.value});
+   },
+   clearAndFocusInput:function(){
+     this.setState({userInput:''},function(){
+       this.refs.theInput.getDOMNode().focus();
+     });
+   },
+   render: function() {
+     return (
+        <div>
+       <div onClick={this.clearAndFocusInput}>
+       Click to Focus and Reset
+       </div>
+       <input
+         ref="theInput"
+         value={this.state.userInput}
+         onChange={this.handleChange}
+       />
+     </div>
+     );
+   }
+  });
+  ReactDOM.render(
+    <App />,
+    document.getElementById('example') );
+  </script>
+</body>
+
+</html>

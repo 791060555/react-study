@@ -10,8 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+  
   </head>
   <body>
+
     <div id="content"></div>
     <script type="text/babel">
       var CommentBox2 = React.createClass({
@@ -35,7 +37,7 @@
           return (
             <div className = "commentList" >
               <Comment author ="张三">我是（this.props.children，children在props中是默认的）</Comment>
-              <Comment author ="李四">这 是 一 *条  *另 评 论</Comment>
+              <Comment author ="李四">这不得到  是 一 *条  *另 评 论</Comment>
             </div>
           );
         }

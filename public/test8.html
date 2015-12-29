@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>双向绑定辅助工具</title>
+  <!-- Not present in the tutorial. Just for basic styling. -->
+  <link rel="stylesheet" href="css/base.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-with-addons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+</head>
+
+<body>
+  <div id="example1"></div>
+  <div id="example2"></div>
+  <div id="example3"></div>
+  <script type="text/babel">
+  var NoLink = React.createClass({
+    getInitialState: function() {
+      return {message: 'Hello!'};
+    },
+    handleChange: function(event) {
+      this.setState({message: event.target.value});
+    },
+    render: function() {
+      var message = this.state.message;
+      return <input type="text" value={message} onChange={this.handleChange} />;
+    }
+  });
+
+  var WithoutMixin = React.createClass({
+    getInitialState:function(){
+      return {message:'Hello!'};
+    },
+    handleChange:function(newValue){
+      this.setState({message:newValue});
+    },
+    render:function(){
+      var valueLink = {
+        value: this.state.message,
+        requestChange:this.handleChange
+      };
+      return <input type="text" valueLink={valueLink} />;
+    }
+  });
+
+  var WithoutLink = React.createClass({
+    mixins: [React.addons.LinkedStateMixin],
+    getInitialState: function() {
+      return {message: 'Hello!'};
+    },
+    render: function() {
+      var valueLink = this.linkState('message');
+      var handleChange = function(e) {
+        valueLink.requestChange(e.target.value);
+      };
+      return <input type="text" value={valueLink.value} onChange={handleChange} />;
+    }
+  });
+
+
+
+  ReactDOM.render(
+    <NoLink />,
+    document.getElementById('example1')
+  );
+  ReactDOM.render(
+    <WithoutMixin />,
+    document.getElementById('example2')
+  );
+  ReactDOM.render(
+    <WithoutLink />,
+    document.getElementById('example3')
+  );
+  </script>
+</body>
+
+</html>
